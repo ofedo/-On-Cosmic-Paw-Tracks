@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+        <title>On Cosmic Paw Tracks</title> 
+   
+        <link rel="stylesheet" type="text/css" href="styles.css">
+    
+<script type='text/javascript' charset='utf-8'>
+    // Hides mobile browser's address bar when page is done loading.
+      window.addEventListener('load', function(e) {
+        setTimeout(function() { window.scrollTo(0, 1); }, 1);
+      }, false);
+</script>
+  </head>
+
+    
+  <body class="fadeIn">
+      <div id="sceneName" class="sceneName">
+        6. Shattered Light Show
+      </div>
+    
+      <div class="wrapper">
+           <a class="prev" href="laika05.html"> < </a> 
+         <a class="next" href="laika07.html"> > </a> 
+    </div>
+           <div style="width: 90%; display: inline-block; overflow: hidden;"> 
+      <div class="scene" onmouseup="checkForNext()">
+          <video width="1024" height="640" autoplay loop id="lights" style="display:inline-block;">
+              <source src="videos/Shattered_Light_Show.mp4" type="video/mp4">
+          </video>
+      </div>
+          </div>
+      <div id="sceneDescription" class="sceneDescription">
+          You are now traveling at the speed of light. Danger! Please evacuate. <p style="font-size: x-small;"> click video to change speed </p>
+      </div>
+      
+    <div id="restart" class="restart sceneName">
+        <a href="">restart</a>
+    </div>
+      
+<script src="laika.js"></script>
+<script> 
+
+    
+    
+var vid = document.getElementById("lights");
+function checkForNext() {   
+    vid.playbackRate = Math.round(Math.random() * 300) / 100 + 1;
+    vid.play();
+    //alert(vid.playbackRate); 
+    showRestart();
+}
+</script>
+      
+  </body>
+</html>

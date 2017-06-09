@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+        <title>On Cosmic Paw Tracks</title> 
+   
+        <link rel="stylesheet" type="text/css" href="styles.css">
+  </head>
+
+    
+  <body class="fadeIn" onload="init()" >
+      <div id="sceneName" class="sceneName">
+        9. Time glitch
+      </div>
+    
+      <div class="wrapper">
+           <a class="prev" href="laika08.html"> < </a> 
+            <a class="next" href="laika09.html"> > </a> 
+       
+                 <div id="divtoshow" class="divtoshow" style="animation-delay: 2s;">
+                <img src="images/newmoon_starmap_2.png"></img>
+               </div>
+          <div id="divtoshow3" class="divtoshow" style="animation-delay: 1s;">
+                <img src="images/newmoon_starmap_3.png"></img>
+               </div>
+      <div id="divtoshow4" class="divtoshow" style="animation-delay: 3s;">
+                <img src="images/newmoon_starmap_4.png"></img>
+               </div>
+    
+               <div id="newmoon2" class="scene newmoon2">
+           <div id="newmoon" class="scene newmoon"></div>
+               
+               <div id="laika" class="divtoshow">
+                <img src="images/laika1.gif" style=""></img>
+               </div>
+             
+    <div id="divtoshow5" class="divtoshow" style="animation-delay: 4s;">
+                <img src="images/newmoon_starmap_5.png"></img>
+               </div>
+<div id="divtoshow6" class="divtoshow" style="animation-delay: 2s;">
+                <img src="images/newmoon_starmap_6.png"></img>
+               </div>
+<div id="divtoshow7" class="divtoshow" style="animation-delay: 1s;">
+                <img src="images/newmoon_starmap_7.png"></img>
+               </div>
+<div id="divtoshow8" class="divtoshow" style="animation-delay: 4s;">
+                <img src="images/newmoon_starmap_8.png"></img>
+               </div>
+              </div>
+<!--
+<img src="images/newmoon_starmap.png" alt="drag-and-drop image script" title="drag-and-drop image script" class="dragme">
+-->          
+
+<!--                <img class="newmoon_overlay" src="images/newmoon_starmap.png"></img>-->
+        
+<!--
+      <div id="sky1" class="scene sky1" onmouseup="checkForNext()">
+          <canvas id="can" width="1024" height="640">
+          </canvas>
+      
+      </div>
+-->    
+          </div>
+      <div id="sceneDescription" class="sceneDescription">
+          SYSTEM HALT! Error code: 0xNNNNNNNN. Please restart! </p>
+      </div>
+      
+    <div id="restart" class="restart sceneName">
+        <a href="">restart</a>
+    </div>
+      
+<script src="laika.js"></script>
+
+<script type="text/javascript">
+//var divName = 'divtoshow'; // div that is to follow the mouse (must be position:absolute)
+//var offX = -200;          // X offset from mouse position
+//var offY = -550;          // Y offset from mouse position
+
+function mouseX(evt) {
+    if (!evt) 
+        evt = window.event; 
+    if (evt.pageX) 
+        return evt.pageX; 
+    else if (evt.clientX)
+        return evt.clientX + 
+            (document.documentElement.scrollLeft ?    
+             document.documentElement.scrxollLeft : document.body.scrollLeft); 
+    else return 0;
+}
+    
+function mouseY(evt) {
+    if (!evt) 
+        evt = window.event; 
+    if (evt.pageY) 
+        return evt.pageY; 
+    else if (evt.clientY)
+        return evt.clientY + 
+            (document.documentElement.scrollTop ? 
+             document.documentElement.scrollTop : document.body.scrollTop); 
+    else return 0;
+}
+
+function follow(evt, divName, offX, offY) {
+//    alert(divName);
+    var obj = document.getElementById(divName);
+    
+//        alert(parseInt((mouseX(evt)+offX))/100);
+    var rect = document.getElementById('newmoon');
+//    alert(rect.offsetLeft);
+//    alert(parseInt(mouseX(evt)*offX)/10);
+    
+    //    alert(obj.style.left);
+    obj.style.left = rect.offsetLeft + parseInt(mouseX(evt)*offX) - 1035 + 'px';
+    obj.style.top = rect.offsetTop + parseInt(mouseY(evt)*offY)/10 + 70 + 'px';
+    
+    //obj.style.top = rect.top;
+//        obj.left = (parseInt(mouseX(evt))+offX) + 'px';
+//        obj.top = (parseInt(mouseY(evt))+offY) + 'px';
+    }
+    
+document.addEventListener("mousemove", function(event) {
+    follow(event, "laika", 2, -1);
+    follow(event, "divtoshow", 2, -1);
+    follow(event, "divtoshow3", 1, -1);
+    follow(event, "divtoshow4", 2, 1);
+    follow(event, "divtoshow5", -1, 1);
+    follow(event, "divtoshow6", -0.4, -1.4);
+    follow(event, "divtoshow7", 1.7, -1.3);
+    follow(event, "divtoshow8", 1, -1);
+});
+    
+
+</script>
+          
+<!--
+<script> 
+function startDrag(e) {
+    // determine event object
+    if (!e) {
+        var e = window.event;
+    }
+    if(e.preventDefault) e.preventDefault();
+
+    // IE uses srcElement, others use target
+    targ = e.target ? e.target : e.srcElement;
+
+    if (targ.className != 'dragme') {return};
+    // calculate event X, Y coordinates
+        offsetX = e.clientX;
+        offsetY = e.clientY;
+
+    // assign default values for top and left properties
+    if(!targ.style.left) { targ.style.left='0px'};
+    if (!targ.style.top) { targ.style.top='0px'};
+
+    // calculate integer values for top and left 
+    // properties
+    coordX = parseInt(targ.style.left);
+    coordY = parseInt(targ.style.top);
+    drag = true;
+
+    // move div element
+        document.onmousemove=dragDiv;
+    return false;
+
+}
+function dragDiv(e) {
+    if (!drag) {return};
+    if (!e) { var e= window.event};
+    // var targ=e.target?e.target:e.srcElement;
+    // move div element
+    targ.style.left=coordX+e.clientX-offsetX+'px';
+    targ.style.top=coordY+e.clientY-offsetY+'px';
+    return false;
+}
+function stopDrag() {
+    drag=false;
+}
+window.onload = function() {
+    document.onmousedown = startDrag;
+    document.onmouseup = stopDrag;
+}
+</script>
+-->
+<!--
+<script>
+    function animateMove(e) {
+//        alert(document.getElementById('newmoon_overlay'));
+        prevX = currX;
+        prevY = currY;
+        currX = e.clientX;
+        currY = e.clientY;
+//        alert(currX);
+//        document.getElementById('newmoon_overlay').style.paddingLeft = (currX / 2 - 512) + "px";
+//        document.getElementById('newmoon_overlay').style.paddingTop = (currY / 2 - 320) + "px";
+         document.getElementById('newmoon_overlay').style.padding = (currX / 2 - 512) + "px " + (currY / 2 - 320) + "px"
+}
+    
+function checkForNext() {
+}
+</script>
+-->
+
+<!--     
+<script type="text/javascript">
+var canvas, ctx, flag = false,
+    prevX = 0,
+    currX = 0,
+    prevY = 0,
+    currY = 0,
+    dot_flag = false;
+
+var x = "rgba(255, 255, 255, 0.7)",
+    y = 1.5;
+
+function init() {
+    canvas = document.getElementById('can');
+    ctx = canvas.getContext("2d");
+    w = canvas.width;
+    h = canvas.height;
+
+    canvas.addEventListener("mousemove", function (e) {
+        findxy('move', e)
+    }, false);
+    canvas.addEventListener("mousedown", function (e) {
+        findxy('down', e)
+    }, false);
+    canvas.addEventListener("mouseup", function (e) {
+        findxy('up', e)
+    }, false);
+    canvas.addEventListener("mouseout", function (e) {
+        findxy('out', e)
+    }, false);
+}
+
+
+function draw() {
+    ctx.beginPath();
+    ctx.moveTo(prevX, prevY);
+    ctx.lineTo(currX, currY);
+    ctx.strokeStyle = x;
+    ctx.lineWidth = y;
+    ctx.stroke();
+    ctx.closePath();
+}
+
+function findxy(res, e) {
+    if (res == 'down') {
+        prevX = currX;
+        prevY = currY;
+        currX = e.clientX - canvas.offsetLeft;
+        currY = e.clientY - canvas.offsetTop;
+
+        flag = true;
+        dot_flag = true;
+        if (dot_flag) {
+            ctx.beginPath();
+            ctx.fillStyle = x;
+            ctx.arc(currX, currY, 4, 0, 2 * Math.PI, false);
+            ctx.fill();
+            //ctx.fillRect(currX, currY, 10, 10);
+            ctx.closePath();
+            dot_flag = false;
+        }
+    }
+    if (res == 'up') {// || res == "out") {
+        currX = e.clientX - canvas.offsetLeft;
+        currY = e.clientY - canvas.offsetTop;
+        ctx.arc(currX, currY, 4, 0, 2 * Math.PI, false);
+        ctx.fill();
+        flag = false;
+        draw();
+        showRestart();
+//        document.getElementById('sky1').style.backgroundImage = "url(images/7_sky_1.gif)";
+    }
+    if (res == 'move') {
+        if (flag) {
+            prevX = currX;
+            prevY = currY;
+//            currX = e.clientX - canvas.offsetLeft;
+//            currY = e.clientY - canvas.offsetTop;
+            //draw();
+        }
+    }
+}
+</script>
+-->
+      
+  </body>
+</html>

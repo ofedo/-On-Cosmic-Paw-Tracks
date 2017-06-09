@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+        <title>On Cosmic Paw Tracks</title> 
+   
+        <link rel="stylesheet" type="text/css" href="styles.css">
+  </head>
+
+    
+  <body class="fadeIn">
+      <div id="sceneName" class="sceneName">
+        5. Melting Sun
+      </div>
+    
+      <div class="wrapper">
+           <a class="prev" href="laika04.html"> < </a> 
+         <a class="next" href="laika06.html"> > </a> 
+    </div>
+          <div style="width: 90%; display: inline-block; overflow: hidden;"> 
+      <div class="scene" onclick="checkForNext()">
+          <video id="video" width="1024" height="640" autoplay="autoplay" poster='images/5_sun.jpg' style="display:inline-block;">
+              <source src="videos/Melting_Sun.mp4" >
+              Your browser does not support the video tag.
+          </video>
+      </div>
+          </div>
+      <div id="sceneDescription" class="sceneDescription">
+          Prepare for take-off! As you are gaining velocity, horizon seems to be dissolving. Please adjust speed limit. <p style="font-size: x-small;"> click video to change speed </p>
+      </div>
+     
+    <div id="restart" class="restart sceneName">
+        <a href="">restart</a>
+    </div>
+      
+<script src="laika.js"></script>
+<script>  
+//document.getElementById("sun").play();
+var video = document.getElementById('video');
+//    video.oncanplay = function() {
+//         alert("Can start playing video");
+//  video.play();
+//};
+
+    
+function checkForNext() { 
+    
+    video.playbackRate = Math.round(Math.random() * 400) / 100 + 0.1;
+    video.play();
+    //alert(video.playbackRate); 
+    showRestart();
+}
+
+
+</script>
+      
+  </body>
+</html>

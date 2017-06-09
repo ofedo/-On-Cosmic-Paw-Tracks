@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+        <title>On Cosmic Paw Tracks</title> 
+        <link rel="stylesheet" type="text/css" href="styles.css">
+      <link rel="stylesheet" type="text/css" href="styles/main.css" media="all">
+  </head>
+
+    
+  <body class="fadeIn" onload="init()">
+      <div id="sceneName" class="sceneName">
+        2. The waving shadow
+      </div>
+    
+    <div class="wrapper">
+         <a class="prev" href="laika01.html"> < </a> 
+         <a class="next" href="laika03.html"> > </a> 
+    </div>
+      <div style="width: 90%; display: inline-block; overflow: hidden;"> 
+        
+<!--      <div id="hand" class="scene hand_shadow" onmouseup="checkForHand()">-->
+          <div id="hand" class="scene" onmouseup="checkForHand()">
+      
+           <video id="webCamWindow" autoplay style="opacity: 0.2;"></video>
+		     
+          <canvas id="can" width="1024" height="640" style="opacity: 1.0;"></canvas>
+           
+           <div id="movement" style="opacity: 0.0;"></div>
+          
+      </div>
+        </div>
+<!--
+      <div id="sceneDescription" class="sceneDescription">
+          Laika is dreaming the Cosmic dream. To enter it, you must first say goodbye to all memories of Earth. <p style="font-size: x-small;"> click when the hand is waving </p>
+      </div>
+-->
+     
+    <div id="restart" class="restart sceneName">
+        <a href="">restart</a>
+    </div>
+      
+<script src="laika.js"></script>
+<script>
+    var counter = 0;
+    var handStyle = document.getElementById('hand').style;
+    setInterval(function(){
+        if (counter < 150) {
+            counter++;
+            
+        } else {
+            counter = 0;
+            ctx.clearRect(0,0,1024, 640);
+        }
+        if (!handStyle.isPaused) {
+            handStyle.backgroundPosition = "0px " + counter * 640 + "px";
+        } else {
+            handStyle.backgroundPosition = "0px " + counter * 640 * Math.random() + "px";
+        }
+    }, 90) 
+    
+function checkForHand() {
+    var handStyle = document.getElementById('hand').style;
+    if (handStyle.isPaused) {
+        handStyle.isPaused = false;
+    } else {
+        handStyle.isPaused = true;
+    }
+//    alert(handStyle.backgroundPositionY);
+//    alert(handStyle.backgroundPositionY > "32000px" && handStyle.backgroundPositionY < "46720px");
+    if (handStyle.backgroundPositionY > "32000px" && handStyle.backgroundPositionY < "46720px") {
+        showRestart();
+    }
+}
+    
+var next = 'down';
+function checkForNext(x, y) {
+    showRestart();
+    if (next == 'down') {
+//        alert(next);
+        findxy('down', x, y);
+        next = 'move';
+    } else if (next == 'move') {
+//        alert(next);
+        findxy('move', x, y);
+        if (Math.random()<0.9) {
+            next = 'move';
+        } else {
+            next = 'up';
+        }
+    } else if (next == 'up') {
+//        alert(next);
+        findxy('up', x, y);
+        if (Math.random()<0.2) {
+            next = 'up';
+        } else {
+            next = 'down';
+        }
+    }
+}
+    
+function drawPixels(pixels, image) {
+//    if (pixels != '') {
+//        alert(pixels.length);
+//    }
+    showRestart();
+    for (var i = 0; i < pixels.length; i++) {
+        if (next == 'down') {
+    //        alert(next);
+            findxyImg('down', pixels[i][0], pixels[i][1], pixels[i][2], pixels[i][3], image);
+            if (Math.random()<0.9) {
+                next = 'move';
+            } else {
+                next = 'up';
+            }
+//            next = 'move';
+        } else if (next == 'move') {
+    //        alert(next);
+            findxyImg('move', pixels[i][0], pixels[i][1], pixels[i][2], pixels[i][3], image);
+            if (Math.random()<0.5) {
+                next = 'move';
+            } else {
+                next = 'up';
+            }
+        } else if (next == 'up') {
+    //        alert(next);
+            findxyImg('up', pixels[i][0], pixels[i][1], pixels[i][2], pixels[i][3], image);
+            if (Math.random()<0.1) {
+                next = 'up';
+            } else {
+                next = 'down';
+            }
+        }
+    }
+}
+</script>
+      
+ 
+<script type="text/javascript">
+var canvas, ctx, flag = false,
+    prevX = 0,
+    currX = 0,
+    prevY = 0,
+    currY = 0,
+    dot_flag = false;
+
+//var x = "rgba(255,255,255," + Math.round(Math.random() * 100) / 100 + ")",
+//var y = 50;
+
+function init() {
+    canvas = document.getElementById('can');
+    ctx = canvas.getContext("2d");
+    w = canvas.width;
+    h = canvas.height;
+
+    canvas.addEventListener("mousemove", function (e) {
+        findxy('move', e.clientX, e.clientY)
+    }, false);
+    canvas.addEventListener("mousedown", function (e) {
+        findxy('down', e.clientX, e.clientY)
+    }, false);
+    canvas.addEventListener("mouseup", function (e) {
+        findxy('up', e.clientX, e.clientY)
+    }, false);
+    canvas.addEventListener("mouseout", function (e) {
+        findxy('out', e.clientX, e.clientY)
+    }, false);
+}
+
+
+function draw(image) {
+    if (image != undefined) {
+        ctx.drawImage(image, currX, currY, 102, 64);
+    } else {
+        ctx.beginPath();
+        ctx.moveTo(prevX, prevY);
+        ctx.lineTo(currX, currY);
+        ctx.strokeStyle = x;
+        ctx.lineWidth = y ;
+        ctx.stroke();
+        ctx.closePath();
+    }
+}
+
+function findxy(res, clientX, clientY) {
+    if (res == 'down') {
+        prevX = currX;
+        prevY = currY;
+        currX = clientX - canvas.offsetLeft;
+        currY = clientY - canvas.offsetTop;
+
+        flag = true;
+        dot_flag = true;
+        if (dot_flag) {
+            mix = Math.round((Math.random() - 0.5) * 500);
+            //alert(mix);
+            x = "rgba(" + (Math.round(Math.random() * 255) + mix) + "," + (Math.round(Math.random() * 255) + mix) + "," + (Math.round(Math.random() * 255) + mix) + "," + Math.round(Math.random() * 100) / 200 + ")";
+            //alert(x);
+            y = Math.random() * 45;
+            ctx.beginPath();
+            ctx.fillStyle = x;
+            ctx.fillRect(currX, currY, 2, 2);
+            ctx.closePath();
+            dot_flag = false;
+        }
+    }
+    if (res == 'up' || res == "out") {
+        flag = false;
+    }
+    if (res == 'move') {
+        y = y * (Math.random() * 45) / 25 + 1;
+        if (flag) {
+            prevX = currX;
+            prevY = currY;
+            currX = clientX - canvas.offsetLeft;
+            currY = clientY - canvas.offsetTop;
+            draw();
+        }
+    }
+}
+    
+    
+function findxyImg(res, clientX, clientY, pixel1Data, pixel2Data, image) {
+    if (res == 'down') {
+        prevX = currX;
+        prevY = currY;
+        currX = clientX - canvas.offsetLeft;
+        currY = clientY - canvas.offsetTop;
+
+        flag = true;
+        dot_flag = true;
+        if (dot_flag) {
+            mix = Math.round((Math.random() - 0.5) * 500);
+//            x = "rgba(" + (Math.round(Math.random() * 255) + mix) + "," + (Math.round(Math.random() * 255) + mix) + "," + (Math.round(Math.random() * 255) + mix) + "," + Math.round(Math.random() * 100) / 200 + ")";
+//            if (pixel1Data != undefined && pixel1Data[0] != 0) {
+//                for (var i = 0; i < pixel1Data.length; i++) {
+//                     alert(i + " is " + pixel1Data[i]); 
+//                }
+//            }
+
+//            x = "rgba(" + pixel1Data[0] + "," + pixel1Data[1] + "," + pixel1Data[2] + "," + pixel1Data[3] + ")";
+             x = "rgba(" + pixel1Data[0] + "," + pixel1Data[1] + "," + pixel1Data[2] + "," + "0.5" + ")";
+            
+            y = Math.random() * 45;
+//            ctx.beginPath();
+//            ctx.fillStyle = x;
+//            ctx.fillRect(currX, currY, 2, 2);
+//            ctx.closePath();
+//           
+//            ctx.drawImage(image, currX, currY, 102, 64);
+            
+            dot_flag = false;
+        }
+    }
+    if (res == 'up' || res == "out") {
+        flag = false;
+    }
+    if (res == 'move') {
+        y = y * (Math.random() * 45) / 25 + 1;
+        if (flag) {
+            prevX = currX;
+            prevY = currY;
+            currX = clientX - canvas.offsetLeft;
+            currY = clientY - canvas.offsetTop;
+//            draw(image);
+            draw();
+        }
+    }
+}
+</script>
+       <script type="text/javascript" src="js/global.js"></script>
+		<script type="text/javascript" src="js/MotionDetector/WebCamCapture.js"></script>
+		<script type="text/javascript" src="js/MotionDetector/ImageCompare.js"></script>
+		<script type="text/javascript" src="js/MotionDetector/Core.js"></script>
+		<script type="text/javascript" src="js/main.js"></script>
+  </body>
+</html>

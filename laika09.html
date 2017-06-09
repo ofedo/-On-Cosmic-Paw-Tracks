@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+        <title>On Cosmic Paw Tracks</title> 
+   
+        <link rel="stylesheet" type="text/css" href="styles.css">
+  </head>
+
+    
+  <body class="fadeIn">
+      <div id="sceneName" class="sceneName">
+        10. Laika radiating. Ode for cosmic puppies
+      </div>
+    
+      <div class="wrapper">
+           <a class="prev" href="laika08b.html"> < </a> 
+         <a class="next" href="laika01.html"> > </a> 
+    </div>
+           <div style="width: 90%; display: inline-block; overflow: hidden;">  
+      <div class="scene" onmouseup="checkForNext()">
+          <video width="1024" height="640" autoplay="autoplay" loop id="laika" style="display:inline-block;">
+              <source src="videos/Laika.mp4">
+          </video>
+      </div>
+          </div>
+      <div id="sceneDescription" class="sceneDescription">
+          Laika is gone forever. Her traces can be found only in the cosmic microwave background radiation noise. Do you wish to allow her an alternate ending? Call her and she will appear. <p style="font-size: x-small;"> click video to change speed </p>
+      </div>
+     
+          <div id="restart" class="restart sceneName">
+        <a href="">restart</a>
+    </div>
+      
+<script src="laika.js"></script>     
+<script>
+    
+var vid = document.getElementById("laika");
+function checkForNext() {    
+    vid.playbackRate = Math.round(Math.random() * 400) / 100 + 0.1;
+    video.play();
+    //alert(vid.playbackRate); 
+    showRestart();
+}
+  
+
+</script>
+      
+  </body>
+</html>

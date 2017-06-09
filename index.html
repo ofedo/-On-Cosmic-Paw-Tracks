@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+        <title>On Cosmic Paw Tracks</title> 
+        <link rel="stylesheet" type="text/css" href="styles.css">
+       <link rel="stylesheet" type="text/css" href="styles/main.css" media="all">
+  </head>
+   
+  <body onload="startDream()">
+      
+    <div id="sceneName" class="sceneName">
+        1. Enter the dream
+    </div>
+      
+    <div class="wrapper">
+         <a class="prev" href="laika09.html"> < </a> 
+         <a class="next" href="laika02.html"> > </a> 
+    </div>
+       
+        <div style="width: 90%; display: inline-block; overflow: hidden;">
+            
+           
+            
+        <div id="window" class="scene hand_shadow fadeIn" onmousemove="moveWindow(event.clientX, event.clientY, 'window', 60800, 1024, 640)" onmouseout="showWindowOverlay()" onclick="lightUp()">
+
+             <video id="webCamWindow" autoplay style="opacity: 0.2;"></video>
+		      <div id="movement" style="opacity: 0;"></div>
+            
+            <div id="window_overlay" class="scene hand_overlay"></div>
+        </div>
+        </div>
+       
+    
+    <div id="sceneDescription" class="sceneDescription">
+        What you see is just an illusion - the window is but a reference to a possibly existing place in space and time. Align yourself to the light to begin the journey...<p style="font-size: x-small;"> click/drag on image to find and turn on hidden light sources </p>
+    </div>
+ 
+
+
+    <div id="restart" class="restart sceneName">
+        <a href="">restart</a>
+    </div>
+
+<script src="laika.js"></script>
+<script>
+     var counter = 0;
+    var handStyle = document.getElementById('hand').style;
+    setInterval(function(){
+        if (counter < 150) {
+            counter++;
+            
+        } else {
+            counter = 0;
+            ctx.clearRect(0,0,1024, 640);
+        }
+        if (!handStyle.isPaused) {
+            handStyle.backgroundPosition = "0px " + counter * 640 + "px";
+        } else {
+            handStyle.backgroundPosition = "0px " + counter * 640 * Math.random() + "px";
+        }
+    }, 90) 
+    
+function startDream() {
+//    document.getElementById('nextScene').style.visibility = "hidden";
+//    document.getElementById('window').style.opacity = 0.25;
+}
+    
+function moveWindow(x, y, elementId, totalHeight, imgWidth, imgHeight) {
+    document.getElementById('window_overlay').style.opacity = 0.0;
+    var x = x - document.getElementById(elementId).offsetLeft;
+    var y = y;
+//    alert(Math.round(((x * totalHeight) / imgWidth) / imgHeight) * imgHeight);
+    document.getElementById(elementId).style.backgroundPosition = "0px " + Math.round(((x * totalHeight) / imgWidth) / imgHeight) * imgHeight + "px";
+//    document.getElementById('lightbulb').style.margin = "0% " + (x / 100 + 20) + "%";
+//    document.getElementById('candle').style.margin = "0% " + (-x / 150 + 13) + "%"
+}
+
+function showWindowOverlay() {
+    document.getElementById('window_overlay').style.opacity = 0.5;
+}
+    
+function checkForNext(x, y) {
+    if (Math.abs(x) != Infinity && Math.abs(x - y) < 100) {
+        showWindowOverlay();
+    } else {
+        moveWindow(x, y, 'window', 27520, 1024, 640);
+    }
+}
+    
+var lightPercent = 0.0;
+function lightUp() {
+    lightPercent = lightPercent + 0.25;
+    if (lightPercent >= 1) {
+        lightPercent = 0.25;
+    }
+    document.getElementById('window').style.opacity = lightPercent;
+}
+    
+function drawPixels(pixels, image) {
+}
+//    
+//function switchLightBulb(element) {
+//    if (!element.isOn) {
+//        element.src = "images/1_lightbulb_on.png";
+//        element.isOn = true;
+//        if (document.getElementById('candle').isOn) {
+//            document.getElementById('window').style.opacity = 1;
+//            showRestart();
+//        } else {
+//            document.getElementById('window').style.opacity = 0.75;
+//        }
+//    } else {
+//        element.src = "images/1_lightbulb_off.png";
+//        element.isOn = false;
+//        if (document.getElementById('candle').isOn) {
+//            document.getElementById('window').style.opacity = 0.75;
+//        } else {
+//            document.getElementById('window').style.opacity = 0.5;
+//        }
+//    }
+//}
+//    
+//function switchCandle(element) {
+//    if (!element.isOn) {
+//        element.src = "images/1_candle_on.png";
+//        element.isOn = true;
+//        if (document.getElementById('lightbulb').isOn) {
+//            document.getElementById('window').style.opacity = 1;
+//            showRestart();
+//        } else {
+//            document.getElementById('window').style.opacity = 0.75;
+//        }
+//    } else {
+//        element.src = "images/1_candle_off.png";
+//        element.isOn = false;
+//        if (document.getElementById('lightbulb').isOn) {
+//            document.getElementById('window').style.opacity = 0.75;
+//        } else {
+//            document.getElementById('window').style.opacity = 0.5;
+//        }
+//    }
+//}
+</script>
+      <script type="text/javascript" src="js/global.js"></script>
+		<script type="text/javascript" src="js/MotionDetector/WebCamCapture.js"></script>
+		<script type="text/javascript" src="js/MotionDetector/ImageCompare.js"></script>
+		<script type="text/javascript" src="js/MotionDetector/Core.js"></script>
+		<script type="text/javascript" src="js/main.js"></script>
+  </body>
+</html>

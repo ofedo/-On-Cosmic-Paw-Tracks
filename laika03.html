@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html >
+  <head>
+      <meta name="mobile-web-app-capable" content="yes">
+    <meta charset="UTF-8">
+        <title>On Cosmic Paw Tracks</title> 
+   
+        <link rel="stylesheet" type="text/css" href="styles.css">
+  </head>
+
+    
+  <body class="fadeIn">
+      <div id="sceneName" class="sceneName">
+        3. Spinning in circles
+      </div>
+    
+      <div class="wrapper">
+           <a class="prev" href="laika02.html"> < </a> 
+         <a class="next" href="laika04.html"> > </a> 
+    </div>
+          
+           <div style="width: 90%; display: inline-block; overflow: hidden;">  
+      <div id="tree" class="scene tree" onmousemove="move(event, 'tree', 12671, 1024, 640)" onmouseup="checkForNext()">
+       
+      </div>
+          </div>
+      
+      <div id="sceneDescription" class="sceneDescription">
+          Focus and balance are in the center. There you will find stillness and clarity. <p style="font-size: x-small;"> click in the middle of the image </p>
+      </div>
+       
+    <div id="restart" class="restart sceneName">
+        <a href="">restart</a>
+    </div>
+      
+<script src="laika.js"></script>
+<script>
+
+function move(e, elementId, totalHeight, imgWidth, imgHeight) {
+    var x = e.clientX - document.getElementById(elementId).offsetLeft;
+    var y = e.clientY - document.getElementById(elementId).offsetTop;
+    timeout = Math.round((512 + (Math.abs(x - 512) - 512)) / 150) + Math.round((320 + (Math.abs(y - 320) - 320)) / 150);
+    //alert(timeout);
+    document.getElementById(elementId).style.animationDuration = timeout + "s";
+}
+    
+function checkForNext() {
+    var treeStyle = document.getElementById('tree').style;
+    if (treeStyle.animationDuration == "0s") {
+        treeStyle.backgroundImage = "url(images/3_tree_clear.jpg)";
+        showRestart();
+    }
+}
+    
+
+</script>
+      
+  </body>
+</html>

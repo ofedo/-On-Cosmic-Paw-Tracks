@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+        <title>On Cosmic Paw Tracks</title> 
+        <link rel="stylesheet" type="text/css" href="styles.css">
+      <link rel="stylesheet" type="text/css" href="styles/main.css" media="all">
+  </head>
+
+    
+  <body class="fadeIn">
+      <div id="sceneName" class="sceneName">
+        4. Learn to fly
+      </div>
+    
+       <div class="wrapper">
+            <a class="prev" href="laika03.html"> < </a> 
+         <a class="next" href="laika05.html"> > </a> 
+    </div>
+         <div style="width: 90%; display: inline-block; overflow: hidden;">   
+            
+            
+           
+             
+             
+      <div id="birds1" class="scene birds1" onclick="checkForNext(1001, 0)">
+          <div id="birds2" class="scene birds2">
+              <div id="birds3" class="scene birds3">
+                   <video id="webCamWindow" autoplay></video>
+		      <div id="movement"></div>
+          </div>
+      </div>
+             </div>
+      <div id="sceneDescription" class="sceneDescription">
+          To continue the journey in space, you must gain altitude. See the birds fly, they will teach you how to do it. <p style="font-size: x-small;"> click image to continue </p>
+      </div>
+          
+     <div id="restart" class="restart sceneName">
+        <a href="">restart</a>
+    </div>
+      
+<script src="laika.js"></script>
+<script>
+    
+function checkForNext(x, y) {
+    if (x > 1000) {
+//    alert('next');
+    var birds1Style = document.getElementById('birds1').style;
+    var birds2Style = document.getElementById('birds2').style;
+    var birds3Style = document.getElementById('birds3').style;
+    //alert(birds2Style.visibility == "");
+    if (birds2Style.visibility == "") {
+        birds2Style.visibility = "visible";
+        //alert(birds2Style.visibility);
+    } else if (birds3Style.visibility == "") {
+         birds3Style.visibility = "visible";
+        showRestart();
+    } else {
+        birds2Style.visibility = "";
+        birds3Style.visibility = "";
+    }
+    }
+}
+</script>
+             
+        <script type="text/javascript" src="js/global.js"></script>
+		<script type="text/javascript" src="js/MotionDetector/WebCamCapture.js"></script>
+		<script type="text/javascript" src="js/MotionDetector/ImageCompare.js"></script>
+		<script type="text/javascript" src="js/MotionDetector/Core.js"></script>
+		<script type="text/javascript" src="js/main.js"></script>
+             
+  </body>
+</html>
