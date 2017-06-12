@@ -6,13 +6,13 @@
  * @author         Benjamin Horn
  * @package        MotionDetector
  * @version        -
- * 
+ *
  */
 
 ;(function(App) {
 
 	"use strict";
-	
+
 	/*
 	 * The core motion detector. Does all the work.
 	 *
@@ -35,7 +35,7 @@
 
 		var topLeft = [Infinity,Infinity];
 		var bottomRight = [0,0];
-        
+
         var diffPixels = [];
 
 		var raf = (function(){
@@ -83,27 +83,38 @@
 			bottomRight[0] = vals.bottomRight[0] * optimize;
 			bottomRight[1] = vals.bottomRight[1] * optimize;
 
-			document.getElementById('movement').style.top = topLeft[1] + 'px';
-			document.getElementById('movement').style.left = topLeft[0] + 'px';
+			if (topLeft[0] != 'Infinity' && topLeft[1] != 'Infinity' &&
+					bottomRight[0] != 'Infinity' && bottomRight[1] != 'Infinity') {
+						var webCamWindow = document.getElementById('webCamWindow');
+						// console.log(webCamWindow.offsetLeft);
+				document.getElementById('movement').style.left = webCamWindow.offsetLeft + topLeft[0] + 'px';
+				document.getElementById('movement').style.top = webCamWindow.offsetTop + topLeft[1] + 'px';
+				document.getElementById('movement').style.width = (bottomRight[0] - topLeft[0]) + 'px';
+				document.getElementById('movement').style.height = (bottomRight[1] - topLeft[1]) + 'px';
+			}
 
-			document.getElementById('movement').style.width = (bottomRight[0] - topLeft[0]) + 'px';
-			document.getElementById('movement').style.height = (bottomRight[1] - topLeft[1]) + 'px';
-            
-            checkForNext(topLeft[0] + (bottomRight[0] - topLeft[0]), topLeft[1] + (bottomRight[1] - topLeft[1]));
-      
-            if (vals.diffPixels != '') {
-//                alert('length ' + vals.diffPixels.length);
-                for (var i = 0; i < vals.diffPixels.length; i++) {
-//                     alert(vals.diffPixels[i]);
-                    if (vals.diffPixels[i] != undefined) {
-//                        alert(vals.diffPixels[i][0]);
-                        diffPixels[i] = [vals.diffPixels[i][0] * optimize + 125, vals.diffPixels[i][1] * optimize + 50, vals.diffPixels[i][2], vals.diffPixels[i][3]];
-                    }
-                }
-            }
-            drawPixels(diffPixels, webCam.captureImage(false));
-            diffPixels = [];
-            
+			// console.log(vals.diffPixels.length);
+      if (vals.diffPixels.length && vals.diffPixels.length < 200) {
+				if (typeof checkForNext !== 'undefined') {
+	      	checkForNext(topLeft[0] + (bottomRight[0] - topLeft[0]), topLeft[1] + (bottomRight[1] - topLeft[1]));
+				}
+				if (typeof doMovementCompare !== 'undefined') {
+					doMovementCompare(topLeft, bottomRight);
+				}
+
+        for (var i = 0; i < vals.diffPixels.length; i++) {
+          if (vals.diffPixels[i] != undefined) {
+              diffPixels[i] = [vals.diffPixels[i][0] * optimize + 125, vals.diffPixels[i][1] * optimize + 50, vals.diffPixels[i][2], vals.diffPixels[i][3]];
+          }
+        }
+
+				if (typeof drawPixels !== 'undefined') {
+	      	drawPixels(diffPixels, webCam.captureImage(false));
+				}
+      }
+
+      diffPixels = [];
+
 			topLeft = [Infinity,Infinity];
 			bottomRight = [0,0]
 

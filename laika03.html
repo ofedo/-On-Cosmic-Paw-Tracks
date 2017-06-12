@@ -1,59 +1,130 @@
 <!DOCTYPE html>
 <html >
   <head>
-      <meta name="mobile-web-app-capable" content="yes">
+      <!-- <meta name="mobile-web-app-capable" content="yes"> -->
+      <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
-        <title>On Cosmic Paw Tracks</title> 
-   
-        <link rel="stylesheet" type="text/css" href="styles.css">
+        <title>On Cosmic Paw Tracks</title>
+
+        <link rel="stylesheet" type="text/css" href="styles/styles.css">
+        <link rel="stylesheet" type="text/css" href="styles/main.css" media="all">
   </head>
 
-    
-  <body class="fadeIn">
+
+  <body class="fadeIn" onload="init()">
       <div id="sceneName" class="sceneName">
         3. Spinning in circles
       </div>
-    
+
       <div class="wrapper">
-           <a class="prev" href="laika02.html"> < </a> 
-         <a class="next" href="laika04.html"> > </a> 
+           <a class="prev" href="laika02.html"> < </a>
+         <a class="next" href="laika04.html"> > </a>
     </div>
-          
-           <div style="width: 90%; display: inline-block; overflow: hidden;">  
-      <div id="tree" class="scene tree" onmousemove="move(event, 'tree', 12671, 1024, 640)" onmouseup="checkForNext()">
-       
+
+    <div id="scene" class="scene">
+      <video id="webCamWindow" autoplay style="opacity: 0.1;"></video>
+      <div id="movement" style="opacity: 0.1;"></div>
+      <!-- <canvas id="can" width="1024" height="640" style="width: 100%; height: 100%;">
+      </canvas> -->
+
+      <div id="tree" class="tree">
+        <div id="tree2" class="tree2 fadeIn"></div>
       </div>
-          </div>
-      
+    </div>
+
       <div id="sceneDescription" class="sceneDescription">
           Focus and balance are in the center. There you will find stillness and clarity. <p style="font-size: x-small;"> click in the middle of the image </p>
       </div>
-       
+
     <div id="restart" class="restart sceneName">
         <a href="">restart</a>
     </div>
-      
-<script src="laika.js"></script>
-<script>
 
+<script>
+function init() {
+  scene = document.getElementById('scene');
+  scene.addEventListener("mousemove", function (e) {
+       move(event, 'tree', 12671, 1024, 640);
+  }, false);
+  // scene.addEventListener("mousedown", function (e) {
+  //     findxy('down', e)
+  // }, false);
+  scene.addEventListener("mouseup", function (e) {
+    checkForNext(e.pageX, e.pageY);
+  }, false);
+  // scene.addEventListener("mouseout", function (e) {
+  //     findxy('out', e)
+  // }, false);
+
+  //  scene.addEventListener("touchstart", function (e) {
+  //     findxy('touchstart', e)
+  // }, false);
+  scene.addEventListener("touchmove", function (e) {
+      move(event, 'tree', 12671, 1024, 640);
+  }, false);
+  scene.addEventListener("touchend", function (e) {
+      checkForNext(e.pageX, e.pageY);
+  }, false);
+}
+var success = false;
 function move(e, elementId, totalHeight, imgWidth, imgHeight) {
+  if (!success) {
     var x = e.clientX - document.getElementById(elementId).offsetLeft;
     var y = e.clientY - document.getElementById(elementId).offsetTop;
-    timeout = Math.round((512 + (Math.abs(x - 512) - 512)) / 150) + Math.round((320 + (Math.abs(y - 320) - 320)) / 150);
-    //alert(timeout);
-    document.getElementById(elementId).style.animationDuration = timeout + "s";
-}
-    
-function checkForNext() {
-    var treeStyle = document.getElementById('tree').style;
-    if (treeStyle.animationDuration == "0s") {
-        treeStyle.backgroundImage = "url(images/3_tree_clear.jpg)";
-        showRestart();
+    timeout = Math.round((512 + (Math.abs(x - 512) - 512)) / 100 * 10) / 10 + Math.round((320 + (Math.abs(y - 320) - 320)) / 100 * 10) / 10;
+    var duration = Number(document.getElementById(elementId).style.animationDuration.split('s')[0]);
+    // console.log("timeout " + timeout);
+    // console.log("duration " + duration);
+    // console.log("absolute " + Math.abs(timeout - duration));
+    var step = 0;
+    if (!isNaN(timeout) && Math.round(Math.abs(timeout-duration)) >= step ) {
+      // console.log("timeout " + timeout);
+      document.getElementById(elementId).style.animationDuration = timeout + "s";
     }
+  }
 }
-    
+
+var counter=0;
+document.getElementById('tree').style.animationDuration = '0s';
+function checkForNext(x,y) {
+  if (!success) {
+    e = new Event('');
+    e.clientX = x;
+    e.clientY = y;
+
+    var step = 1.5;
+    timeout = Math.round((512 + (Math.abs(x - 512) - 512)) / 100 * 10) / 10 + Math.round((320 + (Math.abs(y - 320) - 320)) / 100 * 10) / 10;
+    var duration = Number(document.getElementById('tree').style.animationDuration.split('s')[0]);
+    if (!isNaN(timeout) && Math.round(Math.abs(timeout-duration)) >= step ) {
+      // console.log("timeout " + timeout);
+      move(e, 'tree', 12671, 1024, 640);
+    }
+    // console.log(x);
+    var treeStyle = document.getElementById('tree').style;
+    // console.log(treeStyle.animationDuration);
+    if (Number(treeStyle.animationDuration.split("s")[0]) < 1) {
+      // console.log(Number(treeStyle.animationDuration.split("s")[0]));
+      document.getElementById('tree').style.animationDuration = '10s';
+      counter++;
+      if (counter >= 3) {
+        success = true;
+        var tree2style = document.getElementById('tree2').style;
+        tree2style.animationPlayState = 'running';
+        // treeStyle.backgroundImage = "url(images/3_tree_clear.jpg)";
+        showRestart();
+      }
+    }
+  }
+}
+
 
 </script>
-      
+<script type="text/javascript" src="js/global.js"></script>
+<script type="text/javascript" src="js/MotionDetector/WebCamCapture.js"></script>
+<script type="text/javascript" src="js/MotionDetector/ImageCompare.js"></script>
+<script type="text/javascript" src="js/MotionDetector/Core.js"></script>
+<script type="text/javascript" src="js/docready.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+
   </body>
 </html>

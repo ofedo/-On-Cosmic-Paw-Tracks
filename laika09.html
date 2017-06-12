@@ -2,49 +2,68 @@
 <html >
   <head>
     <meta charset="UTF-8">
-        <title>On Cosmic Paw Tracks</title> 
-   
-        <link rel="stylesheet" type="text/css" href="styles.css">
+        <title>On Cosmic Paw Tracks</title>
+
+        <link rel="stylesheet" type="text/css" href="styles/styles.css">
+        <link rel="stylesheet" type="text/css" href="styles/main.css" media="all">
   </head>
 
-    
+
   <body class="fadeIn">
       <div id="sceneName" class="sceneName">
         10. Laika radiating. Ode for cosmic puppies
       </div>
-    
+
       <div class="wrapper">
-           <a class="prev" href="laika08b.html"> < </a> 
-         <a class="next" href="laika01.html"> > </a> 
+           <a class="prev" href="laika08.html"> < </a>
+         <a class="next" href="index.html"> > </a>
     </div>
-           <div style="width: 90%; display: inline-block; overflow: hidden;">  
-      <div class="scene" onmouseup="checkForNext()">
-          <video width="1024" height="640" autoplay="autoplay" loop id="laika" style="display:inline-block;">
-              <source src="videos/Laika.mp4">
-          </video>
-      </div>
-          </div>
+
+    <div class="scene" onmouseup="checkForNext()">
+      <video id="webCamWindow" autoplay style="opacity:0.1;z-index:100;"></video>
+      <div id="movement" style="opacity:0.0;z-index:-1;"></div>
+        <video id="laika" width="100%" height="100%" autoplay="autoplay" loop style="display:inline-block;">
+          <source src="videos/Laika.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+    </div>
+
       <div id="sceneDescription" class="sceneDescription">
           Laika is gone forever. Her traces can be found only in the cosmic microwave background radiation noise. Do you wish to allow her an alternate ending? Call her and she will appear. <p style="font-size: x-small;"> click video to change speed </p>
       </div>
-     
+
           <div id="restart" class="restart sceneName">
         <a href="">restart</a>
     </div>
-      
-<script src="laika.js"></script>     
-<script>
-    
-var vid = document.getElementById("laika");
-function checkForNext() {    
-    vid.playbackRate = Math.round(Math.random() * 400) / 100 + 0.1;
-    video.play();
-    //alert(vid.playbackRate); 
-    showRestart();
-}
-  
 
+<script>
+
+var video = document.getElementById("laika");
+function checkForNext(x,y) {
+    var x,y;
+    if (typeof x == 'undefined') {
+      x = Math.random();
+      y = Math.random();
+    } else {
+      x/=1000;
+      y/=1000;
+    }
+
+    var newRate = Math.round((x-y) * 10)/10 + 1
+    // if (video.playbackRate != newRate) {
+      video.playbackRate =  newRate;
+    // }
+    // console.log(video.playbackRate);
+    // video.play();
+    // showRestart();
+}
 </script>
-      
+<script type="text/javascript" src="js/global.js"></script>
+<script type="text/javascript" src="js/MotionDetector/WebCamCapture.js"></script>
+<script type="text/javascript" src="js/MotionDetector/ImageCompare.js"></script>
+<script type="text/javascript" src="js/MotionDetector/Core.js"></script>
+<script type="text/javascript" src="js/docready.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+
   </body>
 </html>

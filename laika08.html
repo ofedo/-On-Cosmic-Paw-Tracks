@@ -2,44 +2,41 @@
 <html >
   <head>
     <meta charset="UTF-8">
-        <title>On Cosmic Paw Tracks</title> 
-   
-        <link rel="stylesheet" type="text/css" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>On Cosmic Paw Tracks</title>
+
+        <link rel="stylesheet" type="text/css" href="styles/styles.css">
+        <link rel="stylesheet" type="text/css" href="styles/main.css" media="all">
   </head>
 
-    
+
   <body class="fadeIn" onload="init()">
       <div id="sceneName" class="sceneName">
         8. Moon dog
       </div>
-    
+
       <div class="wrapper">
-           <a class="prev" href="laika07.html"> < </a> 
-         <a class="next" href="laika08b.html"> > </a> 
+           <a class="prev" href="laika07.html"> < </a>
+         <a class="next" href="laika09.html"> > </a>
     </div>
-         <div style="width: 90%; display: inline-block; overflow: hidden;">   
-      <div id="moon" class="scene moon2">  
-          <canvas id="can" width="1024" height="640" class="scene moon1">
+    <div class="scene vmiddle-table">
+      <video id="webCamWindow" autoplay style="opacity: 0;"></video>
+      <div id="movement" style="opacity: 0;z-index: -1;"></div>
+      <div id="moon" class="moon2 vmiddle-cell">
+          <canvas id="can" width="1024" height="640" class="moon1">
               <img src="images/8_sky_1.gif" id="pattern" width="1024" height="640" style="visibility: hidden;">
           </canvas>
-      
       </div>
-          </div>
+    </div>
+
       <div id="sceneDescription" class="sceneDescription">
           Laika's course was towards the Moon, but she never arrived. Her body is still drifting aimlessly in outer space. See if you can find her tracks in the constellations around. <p style="font-size: x-small;"> click/drag mouse to reveal image </p>
       </div>
-     
+
           <div id="restart" class="restart sceneName">
         <a href="">restart</a>
     </div>
-      
-<script src="laika.js"></script>    
-<script>
-function checkForNext() {
-}
-</script>
-      
- 
+
 <script type="text/javascript">
 var canvas, ctx, flag = false,
     prevX = 0,
@@ -54,8 +51,6 @@ var x = "rgba(255, 255, 255, 0.7)",
 function init() {
     canvas = document.getElementById('can');
     ctx = canvas.getContext("2d");
-    w = canvas.width;
-    h = canvas.height;
 
     canvas.addEventListener("mousemove", function (e) {
         findxy('move', e)
@@ -69,7 +64,7 @@ function init() {
     canvas.addEventListener("mouseout", function (e) {
         findxy('out', e)
     }, false);
-    
+
      canvas.addEventListener("touchstart", function (e) {
         findxy('touchstart', e)
     }, false);
@@ -81,8 +76,6 @@ function init() {
     }, false);
 }
 
-var counter = 0;
-    
 function draw() {
     ctx.beginPath();
     ctx.moveTo(prevX, prevY);
@@ -93,29 +86,44 @@ function draw() {
     ctx.closePath();
 }
 
+function  getMousePos(canvas, evt) {
+  var rect = canvas.getBoundingClientRect(), // abs. size of element
+      scaleX = canvas.width / rect.width,    // relationship bitmap vs. element for X
+      scaleY = canvas.height / rect.height;  // relationship bitmap vs. element for Y
+
+  return {
+    x: (evt.clientX - rect.left) * scaleX,   // scale mouse coordinates after they have
+    y: (evt.clientY - rect.top) * scaleY     // been adjusted to be relative to element
+  }
+}
+
+var counter = 0;
 function findxy(res, e) {
     e.preventDefault();
+    canvas = document.getElementById('can');
+    ctx = canvas.getContext("2d");
     if (res == 'down' || res == 'touchstart') {
         prevX = currX;
         prevY = currY;
-        currX = e.clientX - canvas.offsetLeft;
-        currY = e.clientY - canvas.offsetTop;
+        currX = (e.clientX - canvas.getBoundingClientRect().left) * canvas.width / canvas.getBoundingClientRect().width;
+        currY = (e.clientY - canvas.getBoundingClientRect().top) * canvas.height / canvas.getBoundingClientRect().height;
 
         if (res == 'touchstart') {
-            currX = e.changedTouches[0].pageX - canvas.offsetLeft;
-            currY = e.changedTouches[0].pageY - canvas.offsetTop;
+          currX = (e.changedTouches[0].pageX - canvas.getBoundingClientRect().left) * canvas.width / canvas.getBoundingClientRect().width;
+          currY = (e.changedTouches[0].pageY - canvas.getBoundingClientRect().top) * canvas.height / canvas.getBoundingClientRect().height;
         }
-        
+
         flag = true;
         dot_flag = true;
         if (dot_flag) {
-            ctx.beginPath();
             var img=document.getElementById("pattern");
-            var pat=ctx.createPattern(img,"repeat");
+            var pat=ctx.createPattern(img,"no-repeat");
             //ctx.rect(0,0,150,100);
             ctx.arc(currX, currY, 0, 0, 2 * Math.PI, false);
             ctx.fillStyle=pat;
+            ctx.globalAlpha = 0.1;
             ctx.fill();
+            ctx.globalAlpha = 1.0;
 //            ctx.fillStyle = x;
 //            ctx.fillRect(currX, currY, 2, 2);
             //ctx.closePath();
@@ -124,9 +132,8 @@ function findxy(res, e) {
     }
     if (res == 'up' || res == "out" || res == "touchend") {
         flag = false;
-        
         counter++;
-        if (counter > 3) {
+        if (counter > 5) {
             //document.getElementById('moon').style.backgroundImage = "url(images/8_sky_1.gif)";
             document.getElementById('moon').style.webkitAnimationPlayState = "running";
             document.getElementById('can').style.animationPlayState = "running";
@@ -137,23 +144,66 @@ function findxy(res, e) {
         if (flag) {
             prevX = currX;
             prevY = currY;
-            currX = e.clientX - canvas.offsetLeft;
-            currY = e.clientY - canvas.offsetTop;
-            
+            currX = (e.clientX - canvas.getBoundingClientRect().left) * canvas.width / canvas.getBoundingClientRect().width;
+            currY = (e.clientY - canvas.getBoundingClientRect().top) * canvas.height / canvas.getBoundingClientRect().height;
+
             if (res == 'touchmove'){
-                currX = e.changedTouches[0].pageX - canvas.offsetLeft;
-                currY = e.changedTouches[0].pageY - canvas.offsetTop;
+              currX = (e.changedTouches[0].pageX - canvas.getBoundingClientRect().left) * canvas.width / canvas.getBoundingClientRect().width;
+              currY = (e.changedTouches[0].pageY - canvas.getBoundingClientRect().top) * canvas.height / canvas.getBoundingClientRect().height;
             }
-            
+
             //draw();
             //ctx.rect(0,0,150,100);
             ctx.arc(currX, currY, 0, 0, 2 * Math.PI, false);
             ctx.fillStyle=pat;
+            ctx.globalAlpha = 0.1;
             ctx.fill();
+            ctx.globalAlpha = 1.0;
         }
     }
 }
+
+var moveCounter = 0
+function doMovementCompare(topLeft, bottomRight) {
+    canvas = document.getElementById('can');
+    ctx = canvas.getContext("2d");
+    // ctx.beginPath();
+    var img=document.getElementById("pattern");
+    var pat=ctx.createPattern(img,"no-repeat");
+    // ctx.rect(topLeft[0],topLeft[1],(bottomRight[0] - topLeft[0])/1, (bottomRight[1]- topLeft[1])/1);
+    ctx.arc(topLeft[0], topLeft[1], bottomRight[0]/10, bottomRight[1]/10, 2 * Math.PI);
+    // ctx.arc(bottomRight[0], bottomRight[1], 0, 0, 2 * Math.PI, false);
+    ctx.fillStyle=pat;
+
+    // ctx.beginPath();
+    // ctx.moveTo(topLeft[0], topLeft[1]);
+    // ctx.lineTo(bottomRight[0], bottomRight[1]);
+    // // ctx.strokeStyle = x;
+    // ctx.lineWidth = 10;
+    // ctx.stroke();
+    // ctx.closePath();
+    /// only image will have alpha affected:
+    ctx.globalAlpha = 0.1;
+    ctx.fill();
+    ctx.globalAlpha = 1.0;
+
+    moveCounter++;
+
+    if (moveCounter > 100) {
+        //document.getElementById('moon').style.backgroundImage = "url(images/8_sky_1.gif)";
+        document.getElementById('moon').style.webkitAnimationPlayState = "running";
+        document.getElementById('can').style.animationPlayState = "running";
+        showRestart();
+    }
+}
 </script>
-      
+
+<script type="text/javascript" src="js/global.js"></script>
+<script type="text/javascript" src="js/MotionDetector/WebCamCapture.js"></script>
+<script type="text/javascript" src="js/MotionDetector/ImageCompare.js"></script>
+<script type="text/javascript" src="js/MotionDetector/Core.js"></script>
+<script type="text/javascript" src="js/docready.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+
   </body>
 </html>

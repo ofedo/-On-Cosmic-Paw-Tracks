@@ -1,0 +1,394 @@
+/* Changing something in the body */
+:-webkit-full-screen {
+/*  font-size: 16px;*/
+}
+:-moz-full-screen {
+/*  font-size: 16px;*/
+}
+/*Only one element*/
+:-webkit-full-screen img {
+/*
+  width: 100%;
+  height: 100%;
+*/
+}
+:-moz-full-screen img {
+/*
+  width: 100%;
+  height: 100%;
+*/
+}
+
+div:-webkit-full-screen {
+
+/*  width: 100% !important;*/
+/*
+      -webkit-background-size: contain;
+  -moz-background-size: contain;
+  -o-background-size: contain;
+  background-size: contain;
+*/
+}
+
+div:-moz-full-screen {
+/*  width: 100% !important;*/
+}
+div:-ms-fullscreen {
+/*  width: 100% !important;*/
+}
+div:fullscreen {
+/*  width: 100% !important;*/
+}
+
+html, body {
+    background: #000000;
+    padding:0px;
+    margin:0px;
+    width:100%;
+    height:100%;
+    cursor: crosshair;
+}
+
+.unselectable, .sceneName, .sceneDescription, .restart, .prev, .next {
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+.volume {
+    width: 20px;
+    height: 20px;
+    margin: 25px 25px;
+    opacity: 0.2;
+    position: absolute;
+}
+.sceneName, .sceneDescription, .restart {
+    margin: 2% auto;
+    text-align: center;
+    font-family:sans-serif;
+    font-size: small;
+    color: darkslategrey;
+
+    -webkit-animation-name: fadeIn; /* Chrome, Safari, Opera */
+    -webkit-animation-duration: 2s; /* Chrome, Safari, Opera */
+    animation-name: fadeIn;
+    animation-duration: 2s;
+}
+
+.wrapper {
+/*    display: inline-block;*/
+    line-height: 712px;
+/*    overflow: hidden;*/
+}
+.next {
+    float: right;
+    height: 100%;
+    width: 5%;
+    color: dimgrey;
+    opacity: 0.4;
+    font-size: 300%;
+    font-weight: bold;
+    text-align: center;
+/*    padding-right: 20px;*/
+/*    margin-right: 20px;*/
+}
+
+.prev {
+    float: left;
+    height: 100%;
+    width: 5%;
+    color: dimgrey;
+    opacity: 0.4;
+    font-size: 300%;
+     font-weight: bold;
+    text-align: center;
+/*    padding-left: 20px;*/
+/*    margin-left: 20px;*/
+}
+
+
+a {
+    color: dimgrey;
+    text-decoration: none;
+}
+
+.sceneDescription {
+/*    display: block;*/
+/*    clear: both;*/
+    font-size: small;
+/*    margin: 1px auto;*/
+}
+
+.restart {
+    visibility: hidden;
+
+    -webkit-animation-name: fadeIn; /* Chrome, Safari, Opera */
+    -webkit-animation-duration: 2s; /* Chrome, Safari, Opera */
+    -webkit-animation-play-state: paused;
+    animation-name: fadeIn;
+    animation-duration: 2s;
+    animation-play-state: paused;
+}
+
+.scene {
+    max-width: 1024px;
+    max-height: 640px;
+    width: 90%;
+    height: 100%;
+/*    float: left;*/
+/*    display: inline-block;*/
+    margin: 0 auto;
+}
+
+.fadeIn {
+    animation-name: fadeIn;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+    animation-fill-mode: both;
+}
+
+.fadeOut {
+    animation-name: fadeOut;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+    animation-fill-mode: both;
+}
+
+.fadeIn5 {
+    animation-name: fadeIn;
+    animation-duration: 5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: both;
+}
+
+.fadeOut5 {
+    animation-name: fadeOut;
+    animation-duration: 5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: both;
+}
+
+.fadeInToHalf {
+    animation-name: fadeInToHalf;
+    animation-duration: 4s;
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes fadeIn {
+    from {opacity: 0.0;}
+    to {opacity: 1.0;}
+}
+
+/* Standard syntax */
+@keyframes fadeIn {
+    from {opacity: 0.0;}
+    to {opacity: 1.0;}
+}
+
+
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes fadeOut {
+    from {opacity: 1.0;}
+    to {opacity: 0.0;}
+}
+
+/* Standard syntax */
+@keyframes fadeOut {
+    from {opacity: 1.0;}
+    to {opacity: 0.0;}
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes fadeInToHalf {
+    from {opacity: 0.0;}
+    to {opacity: 0.5;}
+}
+
+/* Standard syntax */
+@keyframes fadeInToHalf {
+    from {opacity: 0.0;}
+    to {opacity: 0.5;}
+}
+
+
+/* Scene 01 */
+.window {
+/*    opacity: 0.5;*/
+    background: url('../images/1_window.jpg') center top;
+    background-size: 1024px 27520px;
+
+/*    background-repeat: no-repeat;*/
+}
+
+.window_overlay {
+    opacity: 0.5;
+    background: url('../images/1_window.jpg') center top;
+    background-size: 1024px 27520px;
+/*    -webkit-background-size: 1024px 27520px;*/
+    background-repeat: no-repeat;
+    animation: play_window 4s steps(43) infinite;
+}
+
+@keyframes play_window {
+    100% { background-position: 0px -27520px; }
+}
+
+/* Scene 02 */
+.hand_shadow {
+    background: url('../images/2_hand_shadow.jpg') center bottom;
+    background-size: 1024px 60800px;
+/*    animation: play_hand_shadow 8s steps(95) infinite alternate;*/
+}
+
+.hand_overlay {
+    opacity: 0.5;
+    background: url('../images/2_hand_shadow.jpg') center bottom;
+    background-size: 1024px 60800px;
+/*    animation: play_hand_shadow 8s steps(95) infinite alternate;*/
+}
+
+@keyframes play_hand_shadow {
+    100% { background-position: 0px -60800px;}
+}
+
+/* Scene 03 */
+.tree {
+    width: 100%;
+    height: 100%;
+    background: url('../images/3_tree.jpg') center top;
+    animation: play_tree 8s steps(20) infinite;
+}
+
+.tree2 {
+  width: 100%;
+  height: 100%;
+  background: url('../images/3_tree_clear.jpg') center top;
+  animation-play-state: paused;
+}
+
+@keyframes play_tree {
+    100% { background-position: 0px -12800px;}
+}
+
+/* Scene 04 */
+.birds1 {
+  background: url('../images/4_birds_1.gif');
+  background-size: 1024px 640px;
+  background-repeat: no-repeat;
+}
+
+.birds2 {
+  /*animation-play-state: paused;*/
+  width: 100%;
+  height: 100%;
+  background: url('../images/4_birds_2.gif');
+  background-size: 1024px 640px;
+  background-repeat: no-repeat;
+}
+.birds3 {
+    /*animation-play-state: paused;*/
+    width: 100%;
+    height: 100%;
+    background: url('../images/4_birds_3.gif');
+    background-size: 1024px 640px;
+    background-repeat: no-repeat;
+}
+::-webkit-scrollbar {
+    display: none;
+}
+
+-webkit-print-color-adjust: exact;
+
+@page { size: landscape; }
+@media print {
+    .no-print { display: none; }
+}
+
+.printForScreen {
+    width: 90%;
+    display: inline-block;
+    overflow: hidden;
+}
+
+/* Scene 07 */
+.sky1 {
+  width: 100%;
+  height: 100%;
+  background: url('../images/7_sky_2.gif');
+  background-size: 1024px 640px;
+/*
+    -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+*/
+    background-repeat: no-repeat;
+}
+
+.sky11 {
+    background: url('../images/7_sky_1.gif');
+    background-size: 1024px 640px;
+/*
+    -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+*/
+    background-repeat: no-repeat;
+}
+
+.textArea {
+    position: absolute;
+    background-color: transparent;
+    border: none;
+    font-size: small;
+/*    font-weight: bold;*/
+    font-family: monospace;
+}
+
+/* Scene 08 */
+.vmiddle-table {
+    display: table;
+}
+.vmiddle-cell{
+  display: table-cell;
+  vertical-align: middle;
+}
+.moon1 {
+    width: 100%;
+    /*height: 100%;*/
+    max-width: 1024px;
+    /*max-height: 640px;*/
+
+    animation: fadeOut 2s ;
+    animation-play-state: paused;
+
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeOut {
+    100% { opacity: 0.0;}
+}
+
+.moon2 {
+    height: 100%;
+    background: url('../images/8_sky_2.gif');
+    background-size: 100%;//1024px 640px;
+    background-repeat: no-repeat;
+    background-position: center;
+    animation: play_moon 2s ;
+    animation-play-state: paused;
+    animation-fill-mode: forwards;
+}
+
+@keyframes play_moon {
+    100% {
+      background: url('../images/8_sky_1.gif');
+      background-size: 100% ;//1024px 640px;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+}

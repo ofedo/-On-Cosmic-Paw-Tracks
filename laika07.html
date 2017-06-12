@@ -3,40 +3,41 @@
   <head>
        <meta name="mobile-web-app-capable" content="yes">
     <meta charset="UTF-8">
-        <title>On Cosmic Paw Tracks</title> 
-   
-        <link rel="stylesheet" type="text/css" href="styles.css">
+        <title>On Cosmic Paw Tracks</title>
+
+        <link rel="stylesheet" type="text/css" href="styles/styles.css">
+        <link rel="stylesheet" type="text/css" href="styles/main.css" media="all">
   </head>
 
-    
+
   <body class="fadeIn" onload="init()">
       <div id="sceneName" class="sceneName">
         7. On Cosmic Tracks
       </div>
-    
+
       <div class="wrapper">
-           <a class="prev" href="laika06.html"> < </a> 
-            <a class="next" href="laika08.html"> > </a> 
+           <a class="prev" href="laika06.html"> < </a>
+            <a class="next" href="laika08.html"> > </a>
     </div>
-          <div style="width: 90%; display: inline-block; overflow: hidden;">  
-      <div id="sky1" class="scene sky1" onclick="checkForNext()">
-          <canvas id="can" width="1024" height="640">
-          </canvas>
-      
+
+      <div class="scene">
+        <video id="webCamWindow" autoplay style="opacity: 0.1;"></video>
+        <div id="movement" style="opacity: 0;z-index: -1;"></div>
+        <div id="sky1" class="sky1">
+          <canvas id="can" width="1024" height="640"></canvas>
+        </div>
+
       </div>
-          </div>
+
       <div id="sceneDescription" class="sceneDescription">
           Reached orbit. Please calibrate course coordinates. <p style="font-size: x-small;"> click/drag on image to draw </p>
       </div>
-      
+
     <div id="restart" class="restart sceneName">
         <a href="">restart</a>
     </div>
-      
-<script src="laika.js"></script>
+
 <script>
-    
-    
 function requestFullScreen(element) {
     // Supports most browsers and their versions.
     var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullscreen;
@@ -50,7 +51,7 @@ function requestFullScreen(element) {
             wscript.SendKeys("{F11}");
         }
     }
-    
+
     /// get computed style for image
 //var img = document.getElementById('sky1');
 //var cs = getComputedStyle(img);
@@ -65,16 +66,16 @@ function requestFullScreen(element) {
 //canvas.width = width;
 //canvas.height = height;
 }
-   
-function checkForNext() {
-    if (!document.webkitIsFullScreen) {
-//        requestFullScreen(document.body);
-//        requestFullScreen(document.getElementById('sky1'));
-    }
-}
+
+// function checkForNext() {
+//     // if (!document.webkitIsFullScreen) {
+// //        requestFullScreen(document.body);
+// //        requestFullScreen(document.getElementById('sky1'));
+//     // }
+// }
 </script>
-      
- 
+
+
 <script type="text/javascript">
 var canvas, ctx, flag = false,
     prevX = 0,
@@ -92,26 +93,26 @@ function init() {
     w = canvas.width;
     h = canvas.height;
 
-    canvas.addEventListener("mousemove", function (e) {
+    window.addEventListener("mousemove", function (e) {
         findxy('move', e)
     }, false);
-    canvas.addEventListener("mousedown", function (e) {
+    window.addEventListener("mousedown", function (e) {
         findxy('down', e)
     }, false);
-    canvas.addEventListener("mouseup", function (e) {
+    window.addEventListener("mouseup", function (e) {
         findxy('up', e)
     }, false);
-//    canvas.addEventListener("mouseout", function (e) {
+//    window.addEventListener("mouseout", function (e) {
 //        findxy('out', e)
 //    }, false);
-    
-    canvas.addEventListener("touchstart", function (e) {
+
+    window.addEventListener("touchstart", function (e) {
         findxy('touchstart', e)
     }, false);
-    canvas.addEventListener("touchmove", function (e) {
+    window.addEventListener("touchmove", function (e) {
         findxy('touchmove', e)
     }, false);
-    canvas.addEventListener("touchend", function (e) {
+    window.addEventListener("touchend", function (e) {
         findxy('touchend', e)
     }, false);
 }
@@ -133,20 +134,20 @@ function findxy(res, e) {
 //        alert('down');
         prevX = currX;
         prevY = currY;
-        currX = e.clientX - canvas.offsetLeft;
-        currY = e.clientY - canvas.offsetTop;
+        currX = (e.clientX - canvas.getBoundingClientRect().left) * canvas.width / canvas.getBoundingClientRect().width;
+        currY = (e.clientY - canvas.getBoundingClientRect().top) * canvas.height / canvas.getBoundingClientRect().height;
 
         if (res == 'touchstart') {
-            currX = e.changedTouches[0].pageX - canvas.offsetLeft;
-            currY = e.changedTouches[0].pageY - canvas.offsetTop;
+          currX = (e.changedTouches[0].pageX - canvas.getBoundingClientRect().left) * canvas.width / canvas.getBoundingClientRect().width;
+          currY = (e.changedTouches[0].pageY - canvas.getBoundingClientRect().top) * canvas.height / canvas.getBoundingClientRect().height;
         }
-        
+
         flag = true;
         dot_flag = true;
         if (dot_flag) {
 //            ctx.beginPath();
 //            ctx.fillStyle = x;
-            
+
             mix = Math.round((Math.random() - 0.5) * 500);
             //alert(mix);
             newx = "rgba(" + (Math.round(Math.random() * 255) + mix) + "," + (Math.round(Math.random() * 255) + mix) + "," + (Math.round(Math.random() * 255) + mix) + "," + Math.round(Math.random() * 100) / 200 + ")";
@@ -154,7 +155,7 @@ function findxy(res, e) {
            // y = Math.random() * 1.5;
             ctx.beginPath();
             ctx.fillStyle = newx;
-            
+
             ctx.arc(currX, currY, Math.random() * 3 + 2, 0, 2 * Math.PI, false);
             ctx.fill();
             //ctx.fillRect(currX, currY, 10, 10);
@@ -164,15 +165,15 @@ function findxy(res, e) {
     }
     if (res == 'up' || res == 'touchend') {// || res == "out") {
 //        alert('up');
-        currX = e.clientX - canvas.offsetLeft;
-        currY = e.clientY - canvas.offsetTop;
-        
+currX = (e.clientX - canvas.getBoundingClientRect().left) * canvas.width / canvas.getBoundingClientRect().width;
+currY = (e.clientY - canvas.getBoundingClientRect().top) * canvas.height / canvas.getBoundingClientRect().height;
+
         if (res == 'touchend') {// || res == "out") {
-            currX = e.changedTouches[0].pageX - canvas.offsetLeft;
-            currY = e.changedTouches[0].pageY - canvas.offsetTop;
+          currX = (e.changedTouches[0].pageX - canvas.getBoundingClientRect().left) * canvas.width / canvas.getBoundingClientRect().width;
+          currY = (e.changedTouches[0].pageY - canvas.getBoundingClientRect().top) * canvas.height / canvas.getBoundingClientRect().height;
         }
-        
-        ctx.arc(currX, currY, 2, 0, 2 * Math.PI, false);
+
+        ctx.arc(currX, currY, Math.random() * 3 + 2, 0, 2 * Math.PI, false);
         ctx.fill();
         flag = false;
         draw();
@@ -190,7 +191,68 @@ function findxy(res, e) {
         }
     }
 }
+
+var counter = 0;
+function doMovementCompare(topLeft, bottomRight) {
+  document.getElementById('sky1').style.backgroundImage = "url(images/7_sky_1.gif)";
+
+    canvas = document.getElementById('can');
+    ctx = canvas.getContext("2d");
+    // ctx.beginPath();
+    // ctx.rect(topLeft[0],topLeft[1],(bottomRight[0] - topLeft[0])/1, (bottomRight[1]- topLeft[1])/1);
+    // ctx.arc(topLeft[0], topLeft[1], bottomRight[0]/10, bottomRight[1]/10, 2 * Math.PI);
+    // ctx.arc(bottomRight[0], bottomRight[1], 0, 0, 2 * Math.PI, false);
+    var tl0 = Math.round(Math.random());
+    var tl1 = Math.abs(1 - tl0);
+    var br0 = Math.round(Math.random());
+    var br1 = Math.abs(1 - tl0);
+    ctx.arc(topLeft[tl0], topLeft[tl1], Math.random() * 5 + 2, 0, 2 * Math.PI, false);
+    mix = Math.round((Math.random() - 0.5) * 500);
+    newx = "rgba(" + (Math.round(Math.random() * 255) + mix) + "," + (Math.round(Math.random() * 255) + mix) + "," + (Math.round(Math.random() * 255) + mix) + "," + Math.round(Math.random() * 100) / 200 + ")";
+    ctx.fillStyle = newx;
+    ctx.fill();
+
+    ctx.closePath();
+    ctx.arc(bottomRight[br0], bottomRight[br1], Math.random() * 5 + 2, 0, 2 * Math.PI, false);
+    mix = Math.round((Math.random() - 0.5) * 500);
+    newx = "rgba(" + (Math.round(Math.random() * 255) + mix) + "," + (Math.round(Math.random() * 255) + mix) + "," + (Math.round(Math.random() * 255) + mix) + "," + Math.round(Math.random() * 100) / 200 + ")";
+    ctx.fillStyle = newx;
+    ctx.fill();
+    //ctx.fillRect(currX, currY, 10, 10);
+    // ctx.closePath();
+
+    ctx.beginPath();
+    ctx.moveTo(topLeft[tl0], topLeft[tl1]);
+    ctx.lineTo(bottomRight[br0], bottomRight[br1]);
+    ctx.strokeStyle = x;
+
+    ctx.lineWidth = y;
+    ctx.stroke();
+    ctx.closePath();
+    /// only image will have alpha affected:
+    // ctx.globalAlpha = 0.1;
+    // ctx.fill();
+    // ctx.globalAlpha = 1.0;
+
+    counter++;
+
+    if (counter > 100) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        var w = canvas.width;
+        canvas.width = 1;
+        canvas.width = w;
+        counter=0;
+        showRestart();
+    }
+}
 </script>
-      
+
+<script type="text/javascript" src="js/global.js"></script>
+<script type="text/javascript" src="js/MotionDetector/WebCamCapture.js"></script>
+<script type="text/javascript" src="js/MotionDetector/ImageCompare.js"></script>
+<script type="text/javascript" src="js/MotionDetector/Core.js"></script>
+<script type="text/javascript" src="js/docready.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+
   </body>
 </html>

@@ -6,13 +6,13 @@
  * @author         Benjamin Horn
  * @package        MotionDetector
  * @version        -
- * 
+ *
  */
 
 ;(function(App) {
 
 	"use strict";
-	
+
 	/*
 	 * Compares to images and shows the difference starting
 	 * from the top left to the bottom right.
@@ -46,7 +46,7 @@
 
 			topLeft = [Infinity,Infinity];
 			bottomRight = [0,0];
-            
+
             diffPixels = [];
             diffPixelsCount = 0;
 		}
@@ -88,7 +88,7 @@
 						setTopLeft(x,y);
 						setBottomRight(x,y);
                         addDiffPixel(x,y, pixel1Data, pixel2Data);
-					}					
+					}
 				}
 			}
 
@@ -160,7 +160,7 @@
 				bottomRight[1] = [y];
 			}
 		}
-        
+
         function addDiffPixel(x, y, pixel1Data, pixel2Data) {
 			diffPixels[diffPixelsCount++] = [x, y, pixel1Data, pixel2Data];
 		}
