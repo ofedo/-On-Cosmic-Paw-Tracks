@@ -65,7 +65,9 @@
 		function startStream() {
 			(navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia).call(
 				navigator,
-				{video: true},
+				
+				window.navigator.webkitGetUserMedia({
+				{video: {optional:[ {maxHeight:720}, {maxWidth:960} ]}},
 				function(localMediaStream) {
 					if(webCamWindow) {
 						var vendorURL = window.URL || window.webkitURL;
