@@ -67,7 +67,7 @@
 				navigator,
 				
 				window.navigator.webkitGetUserMedia({
-				{video: {optional:[ {maxHeight:720}, {maxWidth:960} ]}},
+				{video: true},
 				function(localMediaStream) {
 					if(webCamWindow) {
 						var vendorURL = window.URL || window.webkitURL;
