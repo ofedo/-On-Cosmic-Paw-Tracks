@@ -65,8 +65,6 @@
 		function startStream() {
 			(navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia).call(
 				navigator,
-				
-				window.navigator.webkitGetUserMedia({
 				{video: true},
 				function(localMediaStream) {
 					if(webCamWindow) {
