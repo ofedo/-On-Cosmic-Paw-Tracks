@@ -69,11 +69,6 @@
 				navigator.msGetUserMedia).call(
 				navigator,
 				{video: true},
-				// {video : {
-		    //   width : {exact : 320},
-		    //   height : {exact: 240}
-				// 	}
-				// },
 				function(localMediaStream) {
 					if(webCamWindow) {
 						var vendorURL = window.URL || window.webkitURL;
