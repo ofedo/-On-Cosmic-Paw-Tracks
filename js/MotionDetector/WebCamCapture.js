@@ -63,11 +63,17 @@
 		 *
 		 */
 		function startStream() {
-			(navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia).call(
+			(navigator.getUserMedia ||
+				navigator.webkitGetUserMedia ||
+				navigator.mozGetUserMedia ||
+				navigator.msGetUserMedia).call(
 				navigator,
-				
-				window.navigator.webkitGetUserMedia({
-				{video: {optional:[ {maxHeight:720}, {maxWidth:960} ]}},
+				{video: true},
+				// {video : {
+		    //   width : {exact : 320},
+		    //   height : {exact: 240}
+				// 	}
+				// },
 				function(localMediaStream) {
 					if(webCamWindow) {
 						var vendorURL = window.URL || window.webkitURL;
@@ -80,7 +86,9 @@
 						}
 					}
 				},
-				console.error
+				function(err) {
+         console.log("The following error occurred: " + err);
+      	}
 			);
 		}
 

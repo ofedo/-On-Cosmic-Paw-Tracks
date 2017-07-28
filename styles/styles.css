@@ -218,7 +218,7 @@ a {
 .window {
 /*    opacity: 0.5;*/
     background: url('../images/1_window.jpg') center top;
-    background-size: 1024px 27520px;
+    /*background-size: coverå;//1024px 27520px;*/
 
 /*    background-repeat: no-repeat;*/
 }
@@ -226,7 +226,7 @@ a {
 .window_overlay {
     opacity: 0.5;
     background: url('../images/1_window.jpg') center top;
-    background-size: 1024px 27520px;
+    /*background-size: 1024px 27520px;*/
 /*    -webkit-background-size: 1024px 27520px;*/
     background-repeat: no-repeat;
     animation: play_window 4s steps(43) infinite;
@@ -239,14 +239,17 @@ a {
 /* Scene 02 */
 .hand_shadow {
     background: url('../images/2_hand_shadow.jpg') center bottom;
-    background-size: 1024px 60800px;
+    /*background-size: cover; //1024px 60800px;*/
 /*    animation: play_hand_shadow 8s steps(95) infinite alternate;*/
+    /*image-rendering: pixelated;*/
+    -webkit-transition: background 1000s; /* Safari */
+    transition: background 1000s;
 }
 
 .hand_overlay {
     opacity: 0.5;
     background: url('../images/2_hand_shadow.jpg') center bottom;
-    background-size: 1024px 60800px;
+    /*background-size: 1024px 60800px;*/
 /*    animation: play_hand_shadow 8s steps(95) infinite alternate;*/
 }
 
@@ -276,7 +279,7 @@ a {
 /* Scene 04 */
 .birds1 {
   background: url('../images/4_birds_1.gif');
-  background-size: 1024px 640px;
+  /*background-size: 1024px 640px;*/
   background-repeat: no-repeat;
 }
 
@@ -285,7 +288,7 @@ a {
   width: 100%;
   height: 100%;
   background: url('../images/4_birds_2.gif');
-  background-size: 1024px 640px;
+  /*background-size: 1024px 640px;*/
   background-repeat: no-repeat;
 }
 .birds3 {
@@ -293,7 +296,7 @@ a {
     width: 100%;
     height: 100%;
     background: url('../images/4_birds_3.gif');
-    background-size: 1024px 640px;
+    /*background-size: 1024px 640px;*/
     background-repeat: no-repeat;
 }
 ::-webkit-scrollbar {
@@ -318,7 +321,7 @@ a {
   width: 100%;
   height: 100%;
   background: url('../images/7_sky_2.gif');
-  background-size: 1024px 640px;
+  /*background-size: 1024px 640px;*/
 /*
     -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -330,7 +333,7 @@ a {
 
 .sky11 {
     background: url('../images/7_sky_1.gif');
-    background-size: 1024px 640px;
+    /*background-size: 1024px 640px;*/
 /*
     -webkit-background-size: cover;
   -moz-background-size: cover;

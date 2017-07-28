@@ -23,7 +23,7 @@
 
 		var rendering = false;
 
-        var optimize = 15;
+        var optimize = 100;
 		var width = 1024 / optimize;
 		var height = 640 / optimize;
 

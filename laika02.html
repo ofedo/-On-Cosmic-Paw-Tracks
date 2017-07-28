@@ -19,10 +19,10 @@
          <a class="next" href="laika03.html"> > </a>
     </div>
 
-    <div class="scene" onclick="lightUp()">
+    <div class="scene" onclick="sceneClick()">
 
-      <div id="hand" class="hand_shadow" style="width:100%; height: 100%; opacity:0.5;">
-        <video id="webCamWindow" autoplay style="opacity: 0.2;z-index: -1;"></video>
+      <div id="hand" class="hand_shadow" style="width:100%; height: 100%; opacity:1;">
+        <video id="webCamWindow" autoplay style="opacity: 0.0;z-index: 101;"></video>
         <div id="movement" style="opacity: 0;"></div>
         <canvas id="can" width="1024" height="640" style="width: 100%; height: 100%; z-index: 100;"></canvas>
     </div>
@@ -46,6 +46,13 @@
     </div>
 
 <script>
+    var counterModLimit = 2;
+    var transitionDuration = "2s";
+    function sceneClick() {
+      counterModLimit = Math.round(Math.random() * 10) + 1;
+      transitionDuration = Math.round(Math.random() * 10) + "s";
+    }
+
     var counter = 0;
     var handStyle = document.getElementById('hand').style;
     setInterval(function(){
@@ -56,25 +63,28 @@
             counter = 0;
             ctx.clearRect(0,0,1024, 640);
         }
-        if (!handStyle.isPaused) {
+        // if (!handStyle.isPaused) {
+        if (counter % counterModLimit === 0) {
             handStyle.backgroundPosition = "0px " + counter * 640 + "px";
-        } else {
-            handStyle.backgroundPosition = "0px " + counter * 640 * Math.random() + "px";
+            handStyle.transitionDuration = transitionDuration;
         }
+        // } else {
+            // handStyle.backgroundPosition = "0px " + counter * 640 * Math.random() + "px";
+        // }
     }, 90)
 
 function checkForHand() {
     var handStyle = document.getElementById('hand').style;
-    if (handStyle.isPaused) {
-        handStyle.isPaused = false;
-    } else {
-        handStyle.isPaused = true;
-    }
+    // if (handStyle.isPaused) {
+    //     handStyle.isPaused = false;
+    // } else {
+    //     handStyle.isPaused = true;
+    // }
 //    alert(handStyle.backgroundPositionY);
 //    alert(handStyle.backgroundPositionY > "32000px" && handStyle.backgroundPositionY < "46720px");
-    if (handStyle.backgroundPositionY > "32000px" && handStyle.backgroundPositionY < "46720px") {
+    // if (handStyle.backgroundPositionY > "32000px" && handStyle.backgroundPositionY < "46720px") {
         showRestart();
-    }
+    // }
 }
 
 var next = 'down';
@@ -201,7 +211,7 @@ function findxy(res, clientX, clientY) {
         if (dot_flag) {
             mix = Math.round((Math.random() - 0.5) * 500);
             //alert(mix);
-            x = "rgba(" + (Math.round(Math.random() * 255) + mix) + "," + (Math.round(Math.random() * 255) + mix) + "," + (Math.round(Math.random() * 255) + mix) + "," + Math.round(Math.random() * 100) / 200 + ")";
+            x = "rgba(" + (Math.round(Math.random() * 255) + mix) + "," + (Math.round(Math.random() * 255) + mix) + "," + (Math.round(Math.random() * 255) + mix) + "," + Math.round(Math.random() * 100) / 20 + ")";
             //alert(x);
             y = Math.random() * 45;
             ctx.beginPath();

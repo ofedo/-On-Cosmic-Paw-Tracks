@@ -2,40 +2,40 @@
 <html >
   <head>
     <meta charset="UTF-8">
-        <title>On Cosmic Paw Tracks</title> 
+        <title>On Cosmic Paw Tracks</title>
         <link rel="stylesheet" type="text/css" href="styles.css">
        <link rel="stylesheet" type="text/css" href="styles/main.css" media="all">
   </head>
-   
+
   <body onload="startDream()">
-      
+
     <div id="sceneName" class="sceneName">
         1. Enter the dream
     </div>
-      
+
     <div class="wrapper">
-         <a class="prev" href="laika09.html"> < </a> 
-         <a class="next" href="laika02.html"> > </a> 
+         <a class="prev" href="laika09.html"> < </a>
+         <a class="next" href="laika02.html"> > </a>
     </div>
-       
+
         <div style="width: 90%; display: inline-block; overflow: hidden;">
-            
-           
-            
+
+
+
         <div id="window" class="scene window fadeIn" onmousemove="moveWindow(event.clientX, event.clientY, 'window', 27520, 1024, 640)" onmouseout="showWindowOverlay()" onclick="lightUp()">
 
              <video id="webCamWindow" autoplay></video>
 		      <div id="movement" style="opacity: 0;"></div>
-            
+
             <div id="window_overlay" class="scene window_overlay"></div>
         </div>
         </div>
-       
-    
+
+
     <div id="sceneDescription" class="sceneDescription">
         What you see is just an illusion - the window is but a reference to a possibly existing place in space and time. Align yourself to the light to begin the journey...<p style="font-size: x-small;"> try playing with a light source in front of your camera if you're in a darker place </p>
     </div>
- 
+
 
 
     <div id="restart" class="restart sceneName">
@@ -48,7 +48,7 @@ function startDream() {
 //    document.getElementById('nextScene').style.visibility = "hidden";
 //    document.getElementById('window').style.opacity = 0.25;
 }
-    
+
 function moveWindow(x, y, elementId, totalHeight, imgWidth, imgHeight) {
     document.getElementById('window_overlay').style.opacity = 0.0;
     var x = x - document.getElementById(elementId).offsetLeft;
@@ -62,7 +62,7 @@ function moveWindow(x, y, elementId, totalHeight, imgWidth, imgHeight) {
 function showWindowOverlay() {
     document.getElementById('window_overlay').style.opacity = 0.5;
 }
-    
+
 function checkForNext(x, y) {
     if (Math.abs(x) != Infinity && Math.abs(x - y) < 100) {
         showWindowOverlay();
@@ -70,7 +70,7 @@ function checkForNext(x, y) {
         moveWindow(x, y, 'window', 27520, 1024, 640);
     }
 }
-    
+
 var lightPercent = 0.0;
 function lightUp() {
     lightPercent = lightPercent + 0.25;
@@ -79,11 +79,11 @@ function lightUp() {
     }
     document.getElementById('window').style.opacity = lightPercent;
 }
-    
+
 function drawPixels(pixels, image) {
 }
-    
-//    
+
+//
 //function switchLightBulb(element) {
 //    if (!element.isOn) {
 //        element.src = "images/1_lightbulb_on.png";
@@ -104,7 +104,7 @@ function drawPixels(pixels, image) {
 //        }
 //    }
 //}
-//    
+//
 //function switchCandle(element) {
 //    if (!element.isOn) {
 //        element.src = "images/1_candle_on.png";
