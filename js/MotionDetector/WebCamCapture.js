@@ -72,13 +72,8 @@
 				function(localMediaStream) {
 					if(webCamWindow) {
 						var vendorURL = window.URL || window.webkitURL;
-
-						if (navigator.mozGetUserMedia) {
-							webCamWindow.mozSrcObject = localMediaStream;
-							webCamWindow.play();
-						} else {
-							webCamWindow.src = vendorURL.createObjectURL(localMediaStream);
-						}
+						webCamWindow.srcObject = localMediaStream;
+						webCamWindow.play();
 					}
 				},
 				function(err) {
